@@ -1,0 +1,56 @@
+module ALU_TB;
+
+	// Inputs
+	reg [3:0] a;
+	reg [3:0] b;
+	reg [2:0] sel_in;
+
+	// Outputs
+	wire [3:0] out;
+	wire carry_out;
+	wire zero;
+
+	// Instantiate the Unit Under Test (UUT)
+	ALU uut (
+		.a(a), 
+		.b(b), 
+		.sel_in(sel_in), 
+		.out(out), 
+		.carry_out(carry_out), 
+		.zero(zero)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 0;
+		b = 0;
+		sel_in = 0;
+#100;
+   a = 4'b0101; b = 4'b0011; sel_in = 3'b000; #10; // 5 + 3 = 8
+
+        // Test SUB
+        a = 4'b0101; b = 4'b0011;sel_in = 3'b001; #10;// 5 - 3 = 2
+
+        // Test AND
+        a = 4'b0101; b = 4'b0011; sel_in= 3'b010; #10; // 5 & 3 = 1
+
+        // Test OR
+        a = 4'b0101; b = 4'b0011; sel_in= 3'b011; #10; // 5 | 3 = 7
+
+        // Test XOR
+        a = 4'b1100; b = 4'b1010; sel_in = 3'b100; #10;  // 1100 ^ 1010 = 0110
+
+        // Test NOT
+        a = 4'b0101; b = 4'b0000; sel_in = 3'b101; #10;// ~0101 = 1010
+
+        // Test LEFT SHIFT
+        a = 4'b0001; b = 4'b0000; sel_in  = 3'b110; #10; // 0001 << 1 = 0010
+
+        // Test RIGHT SHIFT
+        a = 4'b1000; b = 4'b0000; sel_in  = 3'b111; #10; // 1000 >> 1 = 0100
+
+   
+end
+      
+endmodule
+
